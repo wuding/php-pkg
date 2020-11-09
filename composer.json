@@ -1,0 +1,11 @@
+{
+    "name": "wuding/php-pkg",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pkg\\": "src"
+        }
+    }
+}
