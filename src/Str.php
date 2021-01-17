@@ -6,15 +6,18 @@ class Str
 {
     const VERSION = 20.2461044;
 
-    public static function wordSegment($str = null)
+    public static function wordSegment($str = null, $sep = null)
     {
-        $line = preg_split("/\r\n/", $str);
+        $sep = $sep ?: "\W+|_";
+        $line = mb_split("\r\n", $str);
         $arr = [];
+        #mb_regex_encoding('UTF-8');
+        #mb_internal_encoding("UTF-8");
         foreach ($line as $ln) {
-            $white = preg_split("/\s+/", $ln);
+            $white = mb_split("\s+", $ln);
             foreach ($white as $words) {
-                $words = preg_replace("/\W+|_/", ' ', $words);
-                $cols = preg_split("/\s+/", $words);
+                $words = mb_ereg_replace($sep, ' ', $words);
+                $cols = mb_split("\s+", $words);
                 foreach ($cols as $word) {
                     $word = trim($word);
                     if (!$word) {
