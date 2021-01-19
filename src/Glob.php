@@ -28,7 +28,14 @@ class Glob
     // 第一项作为键名再次获取
     public static function cnf($item, $value = null, $val = null)
     {
+        // 获取配置键名
         $var = self::conf($item, $value);
-        return self::conf($var, $val);
+        // 获取键值
+        $conf = self::conf($var, $val);
+        // 获取缺省
+        if (null === $conf) {
+            $conf = self::conf($value);
+        }
+        return $conf;
     }
 }
