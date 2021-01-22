@@ -5,6 +5,7 @@ namespace Pkg;
 class Glob
 {
     public static $conf = array();
+    public static $obj = array();
 
     /*
     配置
