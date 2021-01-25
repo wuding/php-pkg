@@ -4,8 +4,13 @@ namespace Pkg;
 
 class Glob
 {
+    /*
+    依赖
+    */
+    // 导入的配置数组
     public static $conf = array();
-    public static $obj = array();
+    // 内存缓存服务器
+    public static $mem = null;
 
     /*
     配置
