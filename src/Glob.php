@@ -77,19 +77,21 @@ class Glob
     }
 
     // 导入语言配置
-    public static function lng($locale = null, $directory = null, $available_languages = null, $check_language = null)
+    public static function lng($locale = null, $directory = null, $domain = null, $available_languages = null, $check_language = null)
     {
         $lang = false !== $check_language ? self::lang($locale) : $locale;
         // 是否可用语言
         if ($available_languages && !in_array($lang, $available_languages)) {
             return $GLOBALS['_LANG'] = array();
         }
+        $directory = $directory ?: '.';
+        $domain = $domain ?: 'messages';
         // 包含文件
-        $_LANG = @include $directory ."/$lang.php";
+        $_LANG = @include $directory ."/$lang/LC_MESSAGES/$domain.lng";
         self::$lng = $lang;
         if (!is_array($_LANG)) {
+            self::$lng = $_LANG;
             $_LANG = array();
-            self::$lng = false;
         }
         return $GLOBALS['_LANG'] = $_LANG;
     }
