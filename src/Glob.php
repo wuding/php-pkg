@@ -12,6 +12,8 @@ class Glob
     public static $conf = array();
     // 内存缓存服务器
     public static $mem = null;
+    // 注册器容器
+    public static $data = array();
 
     /*
     变量
@@ -90,5 +92,24 @@ class Glob
             self::$lng = false;
         }
         return $GLOBALS['_LANG'] = $_LANG;
+    }
+
+    /*
+    注册器容器
+    */
+
+    public static function get($key = null)
+    {
+        $array = self::$data;
+        if (array_key_exists($key, $array)) {
+            return $array[$key];
+        }
+        return false;
+    }
+
+    public static function set($key = null, $value = null)
+    {
+        self::$data[$key] = $value;
+        return true;
     }
 }
