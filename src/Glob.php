@@ -4,6 +4,8 @@ namespace Pkg;
 
 class Glob
 {
+    const VERSION = '21.2.16';
+
     /*
     依赖
     */
@@ -118,7 +120,6 @@ class Glob
 
     public static function set($key = null, $value = null)
     {
-        self::$data[$key] = $value;
-        return true;
+        return self::$data[$key] = $value;
     }
 }
