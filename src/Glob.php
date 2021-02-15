@@ -60,9 +60,9 @@ class Glob
     */
 
     // 客户端首选语言
-    public static function lang($locale = null)
+    public static function lang($locale = null, $str = null, $return = null)
     {
-        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? null;
+        $lang = $str ?: ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? null);
         $LANG = preg_split("/,/", $lang);
         $lng = array_shift($LANG);
         // 计划：中文分简繁体
@@ -71,9 +71,16 @@ class Glob
             $lng = substr($lng, 0, $pos);
         }
         if (!$lng) {
-            return self::$lang = $locale;
+            $lng = $locale;
         }
-        return self::$lang = strtolower($lng);
+        $lang = strtolower($lng);
+
+        // 直接返回
+        if ($return) {
+            return $lang;
+        }
+        // 返回并更新属性
+        return self::$lang = $lang;
     }
 
     // 导入语言配置
