@@ -56,10 +56,7 @@ class Mail
             $mail->send();
             return true;
         } catch (Exception $e) {
-            $arr = array();
-            $arr[] = $mail->ErrorInfo;
-            $arr[] = $e;
-            return $arr;
+            return $mail->ErrorInfo;
         }
         return false;
     }
