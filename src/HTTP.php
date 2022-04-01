@@ -28,7 +28,7 @@ class HTTP
             'IM Used (RFC 3229)' => 226,
         ),
         'redirection' => array(
-            'Multiple Choices' +> 300,
+            'Multiple Choices' => 300,
             'Moved Permanently' => 301,
             'Found (Previously "Moved temporarily")' => 302,
             'See Other (since HTTP/1.1)' => 303,
