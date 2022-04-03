@@ -37,9 +37,14 @@ class MySQL
                                 ),
                                 'para' => array(
                                     '1050' => array(
-                                        'Sysmbol' => 'ER_TABLE_EXISTS_ERROR',
+                                        'Symbol' => 'ER_TABLE_EXISTS_ERROR',
                                         'SQLSTATE' => '42s01',
                                         'Message' => "Table '%s' already exists",
+                                    ),
+                                    1064 => array(
+                                        'Symbol' => 'ER_PARSE_ERROR',
+                                        'SQLSTATE' => '42000',
+                                        'Message' => "%s near '%s' at line %d",
                                     ),
                                     1133 => array(
                                         'Symbol' => 'ER_PASSWORD_NO_MATCH',
