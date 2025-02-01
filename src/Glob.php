@@ -2,9 +2,12 @@
 
 namespace Pkg;
 
+use Ext\Math;
+
 class Glob
 {
-    const VERSION = '21.2.16';
+    const VERSION = 25.0202;
+    const REVISION = 10;
 
     /*
     依赖
@@ -23,6 +26,11 @@ class Glob
     // 对应方法结果
     public static $lang = null;
     public static $lng = null;
+
+    static $timeNode = [];
+    static $lastTime = null;
+    static $sql = [];
+    static $sql_diff_min = 100;
 
     /*
     配置
@@ -121,5 +129,50 @@ class Glob
     public static function set($key = null, $value = null)
     {
         return self::$data[$key] = $value;
+    }
+
+/*
+日志
+*/
+
+    // 运行时间标记
+    public static function time($key = null, $time = null)
+    {
+        $time = null === $time ? microtime(true) : $time;
+        if (null === $key) {
+            self::$timeNode[] = $time;
+        } else {
+            self::$timeNode[$key] = $time;
+        }
+    }
+
+    // 运行时间差
+    public static function diff($key = null, $min = 100)
+    {
+        $lt = self::$lastTime ?: $_SERVER['REQUEST_TIME_FLOAT'];
+        self::$lastTime = $m = microtime(true);
+        $diff = $m - $lt;
+        $diff = Math::floors($diff * 1000, 2);
+        if ($diff < $min) {
+            return null;
+        }
+        self::time($key, $diff);
+        return $diff;
+    }
+
+    public static function sql($str = null, $key = null)
+    {
+        if ($key) {
+            self::$sql[$key] = $str;
+        } else {
+            self::$sql[] = $str;
+        }
+    }
+
+    static function sqlDiff($str = null, $key = null, $min = null)
+    {
+        $min = is_null($min) ? self::$sql_diff_min : $min;
+        self::diff($key, $min);
+        self::sql($str, $key);
     }
 }
