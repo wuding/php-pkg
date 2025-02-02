@@ -7,7 +7,7 @@ use Ext\Math;
 class Glob
 {
     const VERSION = 25.0202;
-    const REVISION = 10;
+    const REVISION = 11;
 
     /*
     依赖
@@ -172,7 +172,10 @@ class Glob
     static function sqlDiff($str = null, $key = null, $min = null)
     {
         $min = is_null($min) ? self::$sql_diff_min : $min;
-        self::diff($key, $min);
-        self::sql($str, $key);
+        $diff = self::diff($key, $min);
+        $arr = [$diff, $str];
+        if ($diff) {
+            self::sql($arr, $key);
+        }
     }
 }
